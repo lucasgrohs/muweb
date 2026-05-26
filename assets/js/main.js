@@ -9,8 +9,8 @@
 //     GCP VM, which is where the AdminPanel writes edits. CORS must be
 //     enabled on the nginx serving that endpoint.
 
-const VM_CONTENT_URL = 'https://muaze.duckdns.org/data/content.json';
-const VM_NEWS_URL    = 'https://muaze.duckdns.org/api/news/posts';
+const VM_CONTENT_URL = 'https://api.muaze.online/data/content.json';
+const VM_NEWS_URL    = 'https://api.muaze.online/api/news/posts';
 const isLocal = location.hostname === 'localhost'
              || location.hostname === '127.0.0.1'
              || location.hostname === '';
