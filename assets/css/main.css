@@ -1511,6 +1511,105 @@ section.alt > .container::after  { right: -0.5rem; }
     color: var(--text-dim);
 }
 
+/* Events row — horizontal cards between the metric grid and the ranking tables.
+   "Running" events get a cyan accent so they pop against the gold "upcoming". */
+.events-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.events-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+    padding: 1.5rem 0;
+}
+
+.event-card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem 0.9rem;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+    overflow: hidden;
+}
+
+.event-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    opacity: 0.55;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-dim), transparent);
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-hi);
+}
+
+.event-card.event-running {
+    border-color: var(--cyan-dim);
+    background: linear-gradient(180deg, rgba(0, 191, 255, 0.05), var(--bg-card) 60%);
+}
+
+.event-card.event-running::before {
+    background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.3), var(--cyan), rgba(0, 191, 255, 0.3), transparent);
+    opacity: 0.85;
+}
+
+.event-status {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    padding: 0.18rem 0.45rem;
+    border-radius: 2px;
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--gold-bright);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    margin-bottom: 0.6rem;
+}
+
+.event-card.event-running .event-status {
+    background: rgba(0, 191, 255, 0.14);
+    color: var(--cyan);
+    border-color: rgba(0, 191, 255, 0.35);
+}
+
+.event-name {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+    color: var(--gold);
+    line-height: 1.2;
+}
+
+.event-card.event-running .event-name {
+    color: var(--cyan);
+}
+
+.event-countdown {
+    font-family: 'Cinzel', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.2rem;
+}
+
+.event-meta {
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-family: 'Inter', sans-serif;
+}
+
 /* Side-by-side leaderboard cards */
 .rankings-grid {
     display: grid;
@@ -1570,6 +1669,15 @@ section.alt > .container::after  { right: -0.5rem; }
     padding: 0.65rem 0.5rem;
     border-bottom: 1px solid rgba(212, 175, 55, 0.08);
     color: var(--text);
+    transition: background-color 0.15s ease;
+}
+
+.ranking-table tbody tr:hover td {
+    background: rgba(212, 175, 55, 0.07);
+}
+
+.ranking-table tbody tr.ranking-podium:hover td {
+    background: rgba(212, 175, 55, 0.13);
 }
 
 .ranking-table tbody tr:last-child td {

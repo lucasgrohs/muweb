@@ -224,6 +224,91 @@ function renderRankingTable(tableId, entries, columns) {
     }));
 }
 
+// Events ticker --------------------------------------------------------------
+// Each `events-row` entry carries a `data-target-epoch` attribute set when the
+// server snapshot lands; a single setInterval ticks the visible countdown each
+// second so the user sees a live timer without re-fetching every second.
+
+let eventsTickerHandle = null;
+
+function formatCountdown(seconds) {
+    if (seconds == null || seconds < 0) return '0s';
+    const s = Math.floor(seconds);
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const r = s % 60;
+    if (h > 0) return `${h}h ${String(m).padStart(2, '0')}m`;
+    if (m > 0) return `${m}m ${String(r).padStart(2, '0')}s`;
+    return `${r}s`;
+}
+
+function renderEvents(events) {
+    const row = document.getElementById('events-row');
+    if (!row) return;
+    if (!Array.isArray(events) || events.length === 0) {
+        row.innerHTML = '<div class="events-empty">Sem eventos agendados.</div>';
+        return;
+    }
+
+    const now = Date.now();
+    row.replaceChildren(...events.map(evt => {
+        const card = document.createElement('article');
+        card.className = 'event-card ' + (evt.status === 'Running' ? 'event-running' : 'event-soon');
+        card.dataset.targetEpoch = String(now + (evt.remainingSeconds || 0) * 1000);
+        card.dataset.status = evt.status;
+
+        const status = document.createElement('span');
+        status.className = 'event-status';
+        status.textContent = evt.status === 'Running' ? 'AGORA' : 'EM BREVE';
+
+        const name = document.createElement('h4');
+        name.className = 'event-name';
+        name.textContent = evt.name;
+
+        const countdown = document.createElement('div');
+        countdown.className = 'event-countdown';
+        countdown.textContent = formatCountdown(evt.remainingSeconds);
+
+        const meta = document.createElement('div');
+        meta.className = 'event-meta';
+        if (evt.status === 'Running') {
+            meta.textContent = evt.playerCount > 0
+                ? `${evt.playerCount} jogador${evt.playerCount > 1 ? 'es' : ''}`
+                : 'Em andamento';
+        } else {
+            meta.textContent = 'Próximo início';
+        }
+
+        card.append(status, name, countdown, meta);
+        return card;
+    }));
+
+    if (eventsTickerHandle) clearInterval(eventsTickerHandle);
+    eventsTickerHandle = setInterval(tickEvents, 1000);
+    tickEvents();
+}
+
+function tickEvents() {
+    const row = document.getElementById('events-row');
+    if (!row) return;
+    const now = Date.now();
+    row.querySelectorAll('.event-card').forEach(card => {
+        const target = Number(card.dataset.targetEpoch) || 0;
+        const seconds = Math.max(0, Math.round((target - now) / 1000));
+        const countdown = card.querySelector('.event-countdown');
+        if (countdown) countdown.textContent = formatCountdown(seconds);
+        if (seconds === 0 && card.dataset.status === 'OpensIn') {
+            // Visually flip OpensIn → Running while we wait for the next 60s
+            // snapshot to confirm; status pill swap is enough, name/meta stay.
+            card.classList.remove('event-soon');
+            card.classList.add('event-running');
+            const pill = card.querySelector('.event-status');
+            if (pill) pill.textContent = 'AGORA';
+            card.dataset.status = 'Running';
+        }
+    });
+}
+
 function buildLevelCell(entry) {
     // Level + optional Master Level suffix. Renders as "400" for base chars and
     // "400 + ML 50" for characters that have transitioned, so the public table
@@ -268,6 +353,8 @@ async function loadStats(isRefresh = false) {
     uptimeEl.textContent   = formatUptime(stats.uptimeSeconds);
     accountsEl.textContent = formatNumber(stats.totalAccounts);
     guildsEl.textContent   = formatNumber(stats.totalGuilds);
+
+    renderEvents(stats.events);
 
     renderRankingTable('ranking-guilds', stats.topGuilds, [
         { key: 'rank' },
