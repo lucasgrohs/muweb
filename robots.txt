@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Note: robots.txt only signals intent — actual API/admin paths are protected
+# at the nginx layer (basic auth + IP allowlist).

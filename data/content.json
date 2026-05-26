@@ -1,0 +1,187 @@
+{
+    "site": {
+        "brand": "MuAze",
+        "discordUrl": "",
+        "downloadUrl": "#",
+        "serverStatusLabel": "Servidor Online",
+        "footerCopyright": "© 2026 MuAze · Servidor privado de MU Online",
+        "footerDisclaimer": "MU Online é marca registrada da Webzen Inc. Este é um servidor privado sem fins comerciais, mantido por fãs para fins educacionais e de comunidade."
+    },
+
+    "hero": {
+        "subtitle": "MU Online · Season 6 Episode 3",
+        "tagline": "<strong>Squad Mode</strong> · Devias Siege · Castle Sanctuary",
+        "ctaPrimary": "Baixar Cliente",
+        "ctaSecondary": "Ver Features",
+        "scrollCue": "Explore"
+    },
+
+    "home": {
+        "whyHeader": "Por que MuAze",
+        "whySubtext": "Um servidor customizado com mecânicas que você não vê em nenhum outro MU.",
+        "whyCards": [
+            {
+                "title": "Squad Mode",
+                "body": "Jogue com 5 personagens simultâneos sob uma conta. Phantoms client-side, party automática, painel de gestão Shift+Z.",
+                "linkText": "Saiba mais",
+                "linkUrl": "features.html#squad"
+            },
+            {
+                "title": "Eventos Exclusivos",
+                "body": "Devias Siege (20 min / 4h cooldown), Castle Sanctuary com drops de jewel, 5 eventos com HUD drill-in e ranking ao vivo.",
+                "linkText": "Ver eventos",
+                "linkUrl": "features.html#events"
+            },
+            {
+                "title": "Cash Shop Justo",
+                "body": "6 buffs validados: EXP, Zen Drop, Jewel Drop, Excellent, Lucky, VIP Pass. Sem pay-to-win, só conveniência.",
+                "linkText": "Ver buffs",
+                "linkUrl": "features.html#cashshop"
+            }
+        ],
+        "classesHeader": "Classes Disponíveis",
+        "classesSubtext": "Todas as 7 classes oficiais do MU Online Season 6 Episode 3.",
+        "classes": [
+            { "name": "Dark Knight",     "short": "DK", "imgSrc": "assets/img/class-dk.gif"  },
+            { "name": "Dark Wizard",     "short": "DW", "imgSrc": "assets/img/class-dw.gif"  },
+            { "name": "Fairy Elf",       "short": "FE", "imgSrc": "assets/img/class-elf.gif" },
+            { "name": "Magic Gladiator", "short": "MG", "imgSrc": "assets/img/class-mg.gif"  },
+            { "name": "Dark Lord",       "short": "DL", "imgSrc": "assets/img/class-dl.gif"  },
+            { "name": "Summoner",        "short": "SM", "imgSrc": "assets/img/class-sm.gif"  },
+            { "name": "Rage Fighter",    "short": "RF", "imgSrc": "assets/img/class-rf.gif"  }
+        ],
+        "ctaHeader": "Pronto pra jogar?",
+        "ctaSubtext": "Baixe o cliente, crie sua conta, escolha sua party — em 5 minutos você está em Lorencia.",
+        "ctaPrimary": "Como Começar",
+        "ctaSecondary": "Baixar Cliente"
+    },
+
+    "features": {
+        "pageHeader": "Features Exclusivas",
+        "pageLede": "O que torna o MuAze diferente de qualquer outro servidor de MU.",
+
+        "squadHeader": "Squad Mode",
+        "squadLede": "Uma conta. Cinco personagens. Jogados ao mesmo tempo.",
+        "squadCards": [
+            { "title": "5 chars simultâneos", "body": "Login uma vez, controla cinco. Phantoms client-side com IA por classe — Elf buffa, DK ataca, DW casta Lightning." },
+            { "title": "Party automática",   "body": "Os 5 chars formam party sozinhos no login. XP e drops compartilhados nativamente." },
+            { "title": "Click-to-switch",    "body": "Duplo-clique num membro da party troca o personagem ativo instantaneamente. Inventário, skills e stats restauram corretamente." },
+            { "title": "Painel Shift+Z",     "body": "Squad manager completo: follow modes (Cross/Tight/Wide/Stationary), standby, grupos de party, online/offline por slot." },
+            { "title": "Follow inteligente", "body": "Phantoms seguem o ativo em formação. Cohesion last-resort destrava se ficarem parados." },
+            { "title": "Combat por classe",  "body": "Cada classe ataca no seu range natural — Elf com bow a 6 tiles, melee a 2. Skills: Twisting Slash, Rageful Blow, Lightning, Greater Buffs." }
+        ],
+
+        "eventsHeader": "Eventos Customizados",
+        "eventsCards": [
+            { "title": "Devias Siege",         "body": "Evento de captura territorial em Devias. 20 minutos, cooldown de 4h. Guilda que controlar mais tempo cumulativo vence — e ganha acesso ao Castle Sanctuary." },
+            { "title": "Castle Sanctuary",     "body": "Mapa exclusivo da guilda vencedora do Siege. Drops apenas de jewels (Soul, Bless, Life, Chaos). Portal cyan em Devias." },
+            { "title": "Sanctuary Manager",    "body": "Líder da guilda controla quem entra: whitelist por personagem, com expiração configurável (1min, 10min, 1h, 1 dia, 1 semana, permanente)." },
+            { "title": "Castle Siege Clássico","body": "Versão refinada do evento original: 20 min, captura flips control mid-event, defender block, HUD live com ranking." },
+            { "title": "5 Eventos com Drill-in","body": "Blood Castle, Devil Square, Chaos Castle, Golden Invasion, Red Dragon — todos com HUD live: timer, players na sala, ranking top-10." },
+            { "title": "Guild Event Ranking",  "body": "Top-10 guildas pontuadas em 4 eventos (Devias +100, BC/DS +20 por membro, CC +10). Broadcast 60s no HUD." }
+        ],
+
+        "cashshopHeader": "Cash Shop",
+        "cashshopLede": "6 buffs validados — sem pay-to-win, só conveniência.",
+        "cashshopCards": [
+            { "title": "EXP Boost",       "body": "Aumenta XP ganho em combate por tempo definido." },
+            { "title": "Zen Drop+",       "body": "Mais zen dropado pelos monstros." },
+            { "title": "Jewel Drop+",     "body": "Maior chance de drop de jewels." },
+            { "title": "Excellent Drop+", "body": "Aumenta chance de itens excellent." },
+            { "title": "Lucky Drop+",     "body": "Mais itens com opção +Luck." },
+            { "title": "VIP Pass",        "body": "Acesso a áreas restritas + boost geral." }
+        ],
+
+        "polishHeader": "Polish técnico",
+        "polishCards": [
+            { "title": "Launcher próprio",   "body": "Auto-updater com manifest sha256. Sem .exe avulso pra arrastar — atualização passa pelo cliente." },
+            { "title": "Anti-cheat camadas", "body": "Server-side validation de skill hits, caps e bounds. SuspiciousActivity table + AdminPanel pra revisão." },
+            { "title": "HMAC client gate",   "body": "Main.exe só roda via launcher autenticado (token HMAC-SHA256). Sem hooks no .exe direto." },
+            { "title": "HTTPS Let's Encrypt","body": "TLS prod com cert auto-renewal. Toda comunicação cliente↔server cifrada." },
+            { "title": "AdminPanel rebrand", "body": "Painel admin Blazor com tema MuAze. Bans, suspeitas, eventos — tudo via web." },
+            { "title": "Open-source base",   "body": "Construído sobre OpenMU, fork mantido. Atualizações upstream propagadas regularmente." }
+        ],
+
+        "ctaHeader": "Pronto pra testar tudo isso?",
+        "ctaPrimary": "Como Começar",
+        "ctaSecondary": "Baixar Cliente"
+    },
+
+    "howToPlay": {
+        "pageHeader": "Comece em 4 passos",
+        "pageLede": "Do download ao primeiro mob em Lorencia — leva uns 5 minutos.",
+        "steps": [
+            {
+                "title": "Baixe o Launcher",
+                "body": "O launcher é um único .exe (~70MB) que cuida do download e atualização do cliente. Sem winzip, sem arrastar arquivo na pasta certa.",
+                "ctaText": "Baixar Launcher",
+                "ctaUrl": "#"
+            },
+            {
+                "title": "Crie sua conta",
+                "body": "Abra o launcher e clique em <strong>Criar Conta</strong>. Username, senha, e-mail — tudo direto pelo launcher, sem precisar de site separado. Sua senha é criptografada com BCrypt no servidor."
+            },
+            {
+                "title": "Entre no jogo",
+                "body": "Login no launcher → <strong>Play</strong>. O launcher abre o cliente, autentica via token HMAC e te conecta direto no servidor. Crie seu primeiro personagem na tela inicial."
+            },
+            {
+                "title": "Squad Mode (opcional)",
+                "body": "Crie 5 personagens na mesma conta. No login, todos entram automaticamente em party. Use <strong>Shift+Z</strong> pra configurar follow mode, duplo-clique no slot pra trocar de char. Welcome to MuAze."
+            }
+        ],
+        "footerLede": "Travou em algum passo? Pergunta na comunidade.",
+        "footerCta": "Comunidade"
+    },
+
+    "serverInfo": {
+        "pageHeader": "Informações do Servidor",
+        "pageLede": "Versão, rates e status atual.",
+        "summary": [
+            { "title": "Versão",         "body": "Season 6 Episode 3 — base OpenMU customizada." },
+            { "title": "Cap de Level",   "body": "Level máximo: <strong>400</strong>. Master level até <strong>200</strong>." },
+            { "title": "Slots por conta","body": "<strong>5 personagens</strong> — necessário pro Squad Mode funcionar." }
+        ],
+        "ratesHeader": "Rates",
+        "rates": [
+            { "category": "Experience",            "value": "50×"  },
+            { "category": "Master Experience",     "value": "20×"  },
+            { "category": "Zen Drop",              "value": "3×"   },
+            { "category": "Item Drop Rate",        "value": "30%"  },
+            { "category": "Excellent Item Chance", "value": "1.5%" },
+            { "category": "Jewel Drop Chance",     "value": "2×"   }
+        ],
+        "ratesNote": "Rates podem mudar com balance updates. Confira o changelog.",
+        "eventsHeader": "Eventos — Cronograma",
+        "events": [
+            { "name": "Devias Siege",        "window": "20 min / cooldown 4h" },
+            { "name": "Castle Siege",        "window": "Sábados 20h"          },
+            { "name": "Blood Castle",        "window": "De hora em hora"      },
+            { "name": "Devil Square",        "window": "De 2 em 2 horas"      },
+            { "name": "Chaos Castle",        "window": "De 2 em 2 horas"      },
+            { "name": "Golden Invasion",     "window": "Aleatório"            },
+            { "name": "Red Dragon Invasion", "window": "Aleatório"            }
+        ],
+        "connectionHeader": "Conexão",
+        "connectionBody": "Não exponha o IP do servidor — o launcher resolve o endpoint automaticamente. Caso o launcher não conecte, verifique sua conexão de internet e tente novamente."
+    },
+
+    "community": {
+        "pageHeader": "Comunidade",
+        "pageLede": "Discord, regras e onde reportar problemas.",
+        "channels": [
+            { "title": "Discord",            "body": "Em breve. Quando o servidor abrir publicamente, o convite aparece aqui.", "linkText": "em breve", "linkUrl": "" },
+            { "title": "Bug Report",         "body": "Achou bug, exploit, packet quebrado? Reporta direto pra equipe via Discord ou e-mail." },
+            { "title": "Suporte de Conta",   "body": "Perdeu acesso, conta hackeada, dúvida sobre regras — fale com um admin." }
+        ],
+        "rulesHeader": "Regras da Comunidade",
+        "rules": [
+            { "title": "Sem cheats",          "body": "Speedhack, autoclick avançado, bot de farm 24/7, packet injection — ban permanente sem aviso." },
+            { "title": "Sem dupes",           "body": "Reproduzir ou explorar bugs de duplicação resulta em wipe da conta e ban." },
+            { "title": "Sem comércio externo","body": "Vender conta, itens, zen por dinheiro real é proibido e contra os ToS. Trade só in-game." },
+            { "title": "Respeito",            "body": "Sem racismo, xenofobia, homofobia, ameaças. Chat e Discord são moderados." },
+            { "title": "Squad fair use",      "body": "Squad Mode é pra jogar com 5 chars simultâneos, não pra criar 5 contas e shoppar XP. Multiple-boxing além do squad é proibido." },
+            { "title": "Roubo cabeça",        "body": "Trade scam, golpe via terceiros, engenharia social — investigamos via logs e revertemos. Reincidente vira ban." }
+        ]
+    }
+}

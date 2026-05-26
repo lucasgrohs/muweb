@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+
+# Raw OZJ extractions — keep optimized output in assets/img/, not the raw dump
+assets/img/raw/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+preview.html

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servidor — MuAze</title>
+    <meta name="description" content="Rates, versão e status do servidor MuAze.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="icon" type="image/png" href="assets/img/class-dk.png">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <a href="index.html" class="brand">
+            <img src="assets/img/mu/logo.png" alt="" class="brand-emblem" aria-hidden="true">
+            <span data-content="site.brand">MuAze</span>
+        </a>
+        <nav><ul class="nav">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="how-to-play.html">Como Jogar</a></li>
+            <li><a href="server-info.html" class="active">Servidor</a></li>
+            <li><a href="community.html">Comunidade</a></li>
+        </ul></nav>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="section-header">
+            <h2 data-content="serverInfo.pageHeader">Informações do Servidor</h2>
+            <p class="lede" data-content="serverInfo.pageLede">Versão, rates e status atual.</p>
+            <p><span class="status" data-content="site.serverStatusLabel">Servidor Online</span></p>
+        </div>
+
+        <div class="grid grid-3 mb-3" data-content-list="serverInfo.summary">
+            <article class="card" data-content-template>
+                <h3 data-content-item="title">Versão</h3>
+                <p data-content-item-html="body">Season 6 Episode 3 — base OpenMU customizada.</p>
+            </article>
+        </div>
+
+        <h2 data-content="serverInfo.ratesHeader">Rates</h2>
+        <table class="rate-table">
+            <thead>
+                <tr><th>Categoria</th><th>Rate</th></tr>
+            </thead>
+            <tbody data-content-list="serverInfo.rates">
+                <tr data-content-template>
+                    <td data-content-item="category">Experience</td>
+                    <td data-content-item="value">50×</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="text-center" style="color:var(--muted); font-size:0.85rem;" data-content="serverInfo.ratesNote">
+            Rates podem mudar com balance updates. Confira o changelog.
+        </p>
+
+        <h2 class="mt-2" data-content="serverInfo.eventsHeader">Eventos — Cronograma</h2>
+        <table class="rate-table">
+            <thead>
+                <tr><th>Evento</th><th>Janela</th></tr>
+            </thead>
+            <tbody data-content-list="serverInfo.events">
+                <tr data-content-template>
+                    <td data-content-item="name">Devias Siege</td>
+                    <td data-content-item="window">20 min / cooldown 4h</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="mt-2" data-content="serverInfo.connectionHeader">Conexão</h2>
+        <p class="text-center" style="max-width:600px; margin:0 auto;" data-content="serverInfo.connectionBody">
+            Não exponha o IP do servidor — o launcher resolve o endpoint automaticamente.
+            Caso o launcher não conecte, verifique sua conexão de internet e tente novamente.
+        </p>
+
+    </div>
+</section>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="index.html">Início</a>
+            <a href="features.html">Features</a>
+            <a href="how-to-play.html">Como Jogar</a>
+            <a href="server-info.html">Servidor</a>
+            <a href="community.html">Comunidade</a>
+        </div>
+        <p data-content="site.footerCopyright">© 2026 MuAze · Servidor privado de MU Online</p>
+        <p class="disclaimer" data-content="site.footerDisclaimer">
+            MU Online é marca registrada da Webzen Inc. Este é um servidor privado sem fins comerciais,
+            mantido por fãs para fins educacionais e de comunidade.
+        </p>
+    </div>
+</footer>
+
+<script src="assets/js/main.js" defer></script>
+
+</body>
+</html>
