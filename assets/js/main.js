@@ -324,6 +324,49 @@ function buildLevelCell(entry) {
     return wrap;
 }
 
+function renderSparkline(containerId, points) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    if (!Array.isArray(points) || points.length < 2) {
+        container.innerHTML = '';
+        return;
+    }
+
+    // Project the count series onto a viewBox-relative path. preserveAspectRatio="none"
+    // stretches it to the container's width while keeping the stroke crisp.
+    const width = 100;
+    const height = 28;
+    const counts = points.map(p => p.count ?? 0);
+    const max = Math.max(...counts, 1);
+    const step = width / Math.max(1, points.length - 1);
+
+    let d = '';
+    points.forEach((p, i) => {
+        const x = (i * step).toFixed(1);
+        const y = (height - (p.count / max) * height).toFixed(1);
+        d += (i === 0 ? 'M' : 'L') + x + ',' + y + ' ';
+    });
+
+    // Closing the path with a baseline gives us a soft fill under the line.
+    const fillPath = d + `L${width},${height} L0,${height} Z`;
+
+    container.innerHTML = `
+        <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" class="sparkline">
+            <path class="sparkline-fill" d="${fillPath}"/>
+            <path class="sparkline-line" d="${d.trim()}"/>
+        </svg>`;
+}
+
+function renderUptimeSubtitle(bestSeconds, totalBoots) {
+    const sub = document.getElementById('stat-uptime-sub');
+    if (!sub) return;
+    if (!bestSeconds || !totalBoots) {
+        sub.textContent = '';
+        return;
+    }
+    sub.textContent = `Best: ${formatUptime(bestSeconds)} · ${formatNumber(totalBoots)} boot${totalBoots > 1 ? 's' : ''}`;
+}
+
 function flashRefreshIndicator() {
     const dot = document.getElementById('stats-refresh-dot');
     if (!dot) return;
@@ -353,6 +396,9 @@ async function loadStats(isRefresh = false) {
     uptimeEl.textContent   = formatUptime(stats.uptimeSeconds);
     accountsEl.textContent = formatNumber(stats.totalAccounts);
     guildsEl.textContent   = formatNumber(stats.totalGuilds);
+
+    renderSparkline('sparkline-players', stats.onlineHistory);
+    renderUptimeSubtitle(stats.bestUptimeSeconds, stats.totalBoots);
 
     renderEvents(stats.events);
 
