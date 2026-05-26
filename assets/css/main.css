@@ -1411,43 +1411,70 @@ section.alt > .container::after  { right: -0.5rem; }
 
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+    margin-top: 2.5rem;
 }
 
 .news-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 1.25rem;
+    padding: 2rem 2.25rem 1.75rem;
     cursor: pointer;
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     position: relative;
     display: flex;
     flex-direction: column;
     outline: none;
+    overflow: hidden;
+    min-height: 240px;
+}
+
+/* Top accent bar — thin gold gradient that brightens on hover, gives each
+   card a "headline" feel without needing a real image. */
+.news-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--gold-dim) 25%,
+        var(--gold) 50%,
+        var(--gold-dim) 75%,
+        transparent 100%);
+    opacity: 0.5;
+    transition: opacity 0.25s ease;
 }
 
 .news-card:hover,
 .news-card:focus-visible {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     border-color: var(--border-hi);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg), 0 0 24px rgba(212, 175, 55, 0.15);
+}
+
+.news-card:hover::before,
+.news-card:focus-visible::before {
+    opacity: 1;
 }
 
 .news-card:focus-visible {
-    box-shadow: var(--shadow-md), 0 0 0 2px var(--gold-dim);
+    box-shadow: var(--shadow-lg), 0 0 0 2px var(--gold-dim);
 }
 
 .news-card.is-pinned::after {
-    content: "★";
+    content: "★ Em destaque";
     position: absolute;
-    top: 0.5rem;
-    right: 0.75rem;
-    font-size: 0.9rem;
+    top: 0.65rem;
+    right: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     color: var(--gold-bright);
-    opacity: 0.85;
+    opacity: 0.9;
     text-shadow: 0 0 6px rgba(212, 175, 55, 0.45);
 }
 
@@ -1455,13 +1482,13 @@ section.alt > .container::after  { right: -0.5rem; }
     display: inline-block;
     align-self: flex-start;
     font-family: 'Inter', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding: 0.25rem 0.55rem;
+    letter-spacing: 0.14em;
+    padding: 0.3rem 0.65rem;
     border-radius: 2px;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
 }
 
 .news-cat-badge.cat-announce {
@@ -1483,27 +1510,64 @@ section.alt > .container::after  { right: -0.5rem; }
 }
 
 .news-card h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.1rem;
-    line-height: 1.3;
+    margin: 0 0 0.85rem;
+    font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+    line-height: 1.2;
     color: var(--gold);
+    letter-spacing: 0.01em;
 }
 
 .news-card .news-excerpt {
     color: var(--text-dim);
-    font-size: 0.9rem;
-    line-height: 1.55;
+    font-size: 1rem;
+    line-height: 1.65;
     flex: 1;
     margin: 0;
+    /* Cap the visible excerpt at ~4 lines so card heights stay aligned in the
+       grid; the JS already trims at 180 chars, this is the visual ceiling. */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-card .news-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    font-family: 'Inter', sans-serif;
 }
 
 .news-card time {
-    display: block;
     color: var(--muted);
-    font-size: 0.75rem;
-    margin-top: 1rem;
-    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
     letter-spacing: 0.04em;
+}
+
+.news-card .news-read-more {
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.news-card:hover .news-read-more,
+.news-card:focus-visible .news-read-more {
+    opacity: 1;
+    transform: translateX(2px);
+}
+
+@media (max-width: 720px) {
+    .news-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .news-card { padding: 1.5rem 1.5rem 1.25rem; min-height: 0; }
+    .news-card h3 { font-size: 1.25rem; }
+    .news-card .news-excerpt { font-size: 0.95rem; -webkit-line-clamp: 3; }
 }
 
 .news-empty {

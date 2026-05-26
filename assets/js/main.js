@@ -206,7 +206,15 @@ function renderNewsCard(post) {
     dateEl.dateTime = post.postDate;
     dateEl.textContent = formatNewsDate(post.postDate);
 
-    card.append(badge, heading, excerptEl, dateEl);
+    const readMore = document.createElement('span');
+    readMore.className = 'news-read-more';
+    readMore.textContent = 'Ler mais →';
+
+    const meta = document.createElement('div');
+    meta.className = 'news-meta';
+    meta.append(dateEl, readMore);
+
+    card.append(badge, heading, excerptEl, meta);
 
     const open = () => openNewsModal(post);
     card.addEventListener('click', open);
