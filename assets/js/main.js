@@ -157,6 +157,13 @@ async function loadContent() {
     initNewsModal();
     await Promise.all([loadStats(), loadNews()]);
 
+    // Auto-refresh stats every 60s while the tab is visible — matches the
+    // server-side cache TTL so we never refetch faster than the snapshot rebuilds.
+    // News doesn't auto-refresh (posts arrive infrequently; a page reload is fine).
+    setInterval(() => {
+        if (document.visibilityState !== 'hidden') loadStats();
+    }, 60_000);
+
     // Reveal-able elements get observed AFTER content is filled so
     // template-cloned items also fade in.
     initScrollReveal();
