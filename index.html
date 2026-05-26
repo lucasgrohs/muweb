@@ -72,6 +72,51 @@
     <div class="hero-scroll-cue" aria-hidden="true"><span data-content="hero.scrollCue">Explore</span><br>▾</div>
 </section>
 
+<section class="stats-section" aria-labelledby="stats-heading">
+    <div class="container">
+        <div class="section-header">
+            <h2 id="stats-heading">Status do Servidor</h2>
+            <p>M&eacute;tricas e rankings atualizados a cada minuto.</p>
+        </div>
+        <div class="stats-grid" aria-live="polite">
+            <div class="stat-card">
+                <div class="stat-value" id="stat-players">&mdash;</div>
+                <div class="stat-label">Players Online</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-uptime">&mdash;</div>
+                <div class="stat-label">Uptime</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-accounts">&mdash;</div>
+                <div class="stat-label">Contas Criadas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-guilds">&mdash;</div>
+                <div class="stat-label">Guilds Ativas</div>
+            </div>
+        </div>
+        <div class="rankings-grid">
+            <article class="ranking-card">
+                <h3>Top Guilds</h3>
+                <p class="ranking-subhead">Por pontua&ccedil;&atilde;o de eventos (Devias Siege, Blood Castle, Devil Square, Chaos Castle).</p>
+                <table class="ranking-table" id="ranking-guilds">
+                    <thead><tr><th>#</th><th>Guild</th><th class="ranking-num">Score</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </article>
+            <article class="ranking-card">
+                <h3>Top Heroes</h3>
+                <p class="ranking-subhead">Os 10 personagens com mais experi&ecirc;ncia acumulada.</p>
+                <table class="ranking-table" id="ranking-players">
+                    <thead><tr><th>#</th><th>Personagem</th><th>Classe</th><th class="ranking-num">N&iacute;vel</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </article>
+        </div>
+    </div>
+</section>
+
 <section class="news-section" aria-labelledby="news-heading">
     <div class="container">
         <div class="section-header">

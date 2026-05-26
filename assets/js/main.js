@@ -11,11 +11,13 @@
 
 const VM_CONTENT_URL = 'https://api.muaze.online/data/content.json';
 const VM_NEWS_URL    = 'https://api.muaze.online/api/news/posts';
+const VM_STATS_URL   = 'https://api.muaze.online/api/stats/summary';
 const isLocal = location.hostname === 'localhost'
              || location.hostname === '127.0.0.1'
              || location.hostname === '';
-const CONTENT_URL = isLocal ? '/data/content.json' : VM_CONTENT_URL;
-const NEWS_URL    = isLocal ? '/api/news/posts'    : VM_NEWS_URL;
+const CONTENT_URL = isLocal ? '/data/content.json'   : VM_CONTENT_URL;
+const NEWS_URL    = isLocal ? '/api/news/posts'      : VM_NEWS_URL;
+const STATS_URL   = isLocal ? '/api/stats/summary'   : VM_STATS_URL;
 const NEWS_MAX = 4;
 
 // NewsCategory enum -> display label + badge css class. Mirrors the int values
@@ -150,13 +152,97 @@ async function loadContent() {
         fillLists(document, data);
     }
 
-    // News is loaded independently — DB-backed, separate endpoint.
+    // Stats + News loaded independently from content.json — both DB-backed.
+    // Fetch in parallel so news doesn't wait on the (slower, cached) stats call.
     initNewsModal();
-    await loadNews();
+    await Promise.all([loadStats(), loadNews()]);
 
     // Reveal-able elements get observed AFTER content is filled so
     // template-cloned items also fade in.
     initScrollReveal();
+}
+
+// ---------------------------------------------------------------------------
+// Stats summary — players-online + leaderboards. Server caches for 60s; this
+// runs once on page load. Each value falls back gracefully (em-dash) if the
+// endpoint is unreachable so the section never looks broken.
+// ---------------------------------------------------------------------------
+
+const NUMBER_FORMATTER = new Intl.NumberFormat('pt-BR');
+
+function formatNumber(n) {
+    if (n == null || isNaN(n)) return '—';
+    return NUMBER_FORMATTER.format(n);
+}
+
+function formatUptime(seconds) {
+    if (seconds == null || seconds < 60) return '< 1m';
+    const days = Math.floor(seconds / 86400);
+    const hours = Math.floor((seconds % 86400) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    if (days > 0) return `${days}d ${hours}h`;
+    if (hours > 0) return `${hours}h ${minutes}m`;
+    return `${minutes}m`;
+}
+
+function renderRankingTable(tableId, entries, columns) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+
+    const headerCols = table.querySelectorAll('thead th').length;
+    if (!Array.isArray(entries) || entries.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="${headerCols}" class="ranking-empty">Sem entradas ainda.</td></tr>`;
+        return;
+    }
+
+    tbody.replaceChildren(...entries.map((entry, index) => {
+        const tr = document.createElement('tr');
+        if (index < 3) tr.classList.add('ranking-podium');
+        columns.forEach(col => {
+            const td = document.createElement('td');
+            const value = entry[col.key];
+            td.textContent = col.format ? col.format(value) : String(value ?? '');
+            if (col.cls) td.className = col.cls;
+            tr.appendChild(td);
+        });
+        return tr;
+    }));
+}
+
+async function loadStats() {
+    const playersEl  = document.getElementById('stat-players');
+    const uptimeEl   = document.getElementById('stat-uptime');
+    const accountsEl = document.getElementById('stat-accounts');
+    const guildsEl   = document.getElementById('stat-guilds');
+    if (!playersEl) return;
+
+    let stats = null;
+    try {
+        stats = await fetchJson(STATS_URL);
+    } catch (err) {
+        console.warn('[muaze] stats fetch failed:', err);
+    }
+    if (!stats) return;
+
+    playersEl.textContent  = formatNumber(stats.playersOnline);
+    uptimeEl.textContent   = formatUptime(stats.uptimeSeconds);
+    accountsEl.textContent = formatNumber(stats.totalAccounts);
+    guildsEl.textContent   = formatNumber(stats.totalGuilds);
+
+    renderRankingTable('ranking-guilds', stats.topGuilds, [
+        { key: 'rank' },
+        { key: 'name' },
+        { key: 'score', format: formatNumber, cls: 'ranking-num' },
+    ]);
+
+    renderRankingTable('ranking-players', stats.topPlayers, [
+        { key: 'rank' },
+        { key: 'name' },
+        { key: 'class' },
+        { key: 'level', format: formatNumber, cls: 'ranking-num' },
+    ]);
 }
 
 // ---------------------------------------------------------------------------
