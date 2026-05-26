@@ -1451,6 +1451,55 @@ section.alt > .container::after  { right: -0.5rem; }
     line-height: 1.1;
     margin-bottom: 0.4rem;
     text-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+    min-height: 1.1em; /* keep card height stable while the skeleton is showing */
+}
+
+/* Loading skeleton — replaces the value while the first fetch is in flight.
+   textContent assignment from loadStats() destroys the skeleton span. */
+.skeleton-bar {
+    display: inline-block;
+    width: 3.5rem;
+    height: 1em;
+    border-radius: 2px;
+    background: linear-gradient(90deg,
+        rgba(212, 175, 55, 0.08) 0%,
+        rgba(212, 175, 55, 0.22) 50%,
+        rgba(212, 175, 55, 0.08) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.4s ease-in-out infinite;
+    text-shadow: none;
+    vertical-align: middle;
+}
+
+@keyframes skeleton-pulse {
+    0%, 100% { background-position: 200% 0; }
+    50%      { background-position: -200% 0; }
+}
+
+/* Refresh indicator — appears next to the section heading for ~1.5s after
+   each auto-refresh tick completes, so the user gets a subtle "data updated"
+   cue without page chrome. */
+.refresh-indicator {
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-left: 0.5rem;
+    opacity: 0;
+    vertical-align: middle;
+    transform: scale(0.6);
+    pointer-events: none;
+}
+
+.refresh-indicator.flash {
+    animation: refresh-flash 1.5s ease-out forwards;
+}
+
+@keyframes refresh-flash {
+    0%   { opacity: 0; transform: scale(0.6); box-shadow: 0 0 0 transparent; }
+    20%  { opacity: 1; transform: scale(1.15); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); }
+    100% { opacity: 0; transform: scale(0.85); box-shadow: 0 0 0 transparent; }
 }
 
 .stat-label {
@@ -1559,6 +1608,16 @@ section.alt > .container::after  { right: -0.5rem; }
     color: var(--muted);
     font-style: italic;
     padding: 1.25rem 0 !important;
+}
+
+/* Master Level suffix on Top Heroes — dimmer + smaller than the base level
+   so the eye reads "400" first and the ML annotation second. */
+.ranking-ml {
+    color: var(--cyan);
+    font-size: 0.78rem;
+    margin-left: 0.25rem;
+    opacity: 0.85;
+    font-weight: 600;
 }
 
 @media (max-width: 900px) {

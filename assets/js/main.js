@@ -161,7 +161,7 @@ async function loadContent() {
     // server-side cache TTL so we never refetch faster than the snapshot rebuilds.
     // News doesn't auto-refresh (posts arrive infrequently; a page reload is fine).
     setInterval(() => {
-        if (document.visibilityState !== 'hidden') loadStats();
+        if (document.visibilityState !== 'hidden') loadStats(true);
     }, 60_000);
 
     // Reveal-able elements get observed AFTER content is filled so
@@ -209,8 +209,14 @@ function renderRankingTable(tableId, entries, columns) {
         if (index < 3) tr.classList.add('ranking-podium');
         columns.forEach(col => {
             const td = document.createElement('td');
-            const value = entry[col.key];
-            td.textContent = col.format ? col.format(value) : String(value ?? '');
+            if (col.dom) {
+                // Column delegates DOM construction (used by columns that need mixed
+                // markup, e.g. Level + Master Level suffix).
+                td.appendChild(col.dom(entry));
+            } else {
+                const value = entry[col.key];
+                td.textContent = col.format ? col.format(value) : String(value ?? '');
+            }
             if (col.cls) td.className = col.cls;
             tr.appendChild(td);
         });
@@ -218,7 +224,31 @@ function renderRankingTable(tableId, entries, columns) {
     }));
 }
 
-async function loadStats() {
+function buildLevelCell(entry) {
+    // Level + optional Master Level suffix. Renders as "400" for base chars and
+    // "400 + ML 50" for characters that have transitioned, so the public table
+    // surfaces master progression without breaking the existing column layout.
+    const wrap = document.createElement('span');
+    wrap.textContent = formatNumber(entry.level);
+    if (entry.masterLevel > 0) {
+        const ml = document.createElement('small');
+        ml.className = 'ranking-ml';
+        ml.textContent = ` + ML ${formatNumber(entry.masterLevel)}`;
+        wrap.appendChild(ml);
+    }
+    return wrap;
+}
+
+function flashRefreshIndicator() {
+    const dot = document.getElementById('stats-refresh-dot');
+    if (!dot) return;
+    // Restart the animation by removing the class and forcing a reflow before re-adding.
+    dot.classList.remove('flash');
+    void dot.offsetWidth;
+    dot.classList.add('flash');
+}
+
+async function loadStats(isRefresh = false) {
     const playersEl  = document.getElementById('stat-players');
     const uptimeEl   = document.getElementById('stat-uptime');
     const accountsEl = document.getElementById('stat-accounts');
@@ -233,6 +263,7 @@ async function loadStats() {
     }
     if (!stats) return;
 
+    // textContent replaces the skeleton span on first paint and any subsequent value.
     playersEl.textContent  = formatNumber(stats.playersOnline);
     uptimeEl.textContent   = formatUptime(stats.uptimeSeconds);
     accountsEl.textContent = formatNumber(stats.totalAccounts);
@@ -248,8 +279,10 @@ async function loadStats() {
         { key: 'rank' },
         { key: 'name' },
         { key: 'class' },
-        { key: 'level', format: formatNumber, cls: 'ranking-num' },
+        { dom: buildLevelCell, cls: 'ranking-num' },
     ]);
+
+    if (isRefresh) flashRefreshIndicator();
 }
 
 // ---------------------------------------------------------------------------
