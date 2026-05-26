@@ -105,22 +105,43 @@ function fillLists(scope, data) {
     });
 }
 
+async function fetchJson(url) {
+    const res = await fetch(url, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
+    return res.json();
+}
+
 async function loadContent() {
+    let data = null;
+
+    // Primary: configured CONTENT_URL (VM in prod, relative in dev).
     try {
-        const res = await fetch(CONTENT_URL, { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
+        data = await fetchJson(CONTENT_URL);
+    } catch (err) {
+        console.warn('[muaze] primary content fetch failed:', err);
+    }
+
+    // Fallback: bundled /data/content.json. Only attempted when (a) primary
+    // failed AND (b) we weren't already trying the bundled file. Ensures the
+    // list templates render correctly even when CORS / VM endpoint isn't up
+    // yet — Cloudflare Pages ships the JSON alongside the rest of the site.
+    if (!data && CONTENT_URL !== '/data/content.json') {
+        try {
+            data = await fetchJson('/data/content.json');
+            console.info('[muaze] loaded fallback content.json (bundled)');
+        } catch (err) {
+            console.warn('[muaze] fallback content.json also failed:', err);
+        }
+    }
+
+    if (data) {
         fillScalars(document, data);
         fillLists(document, data);
-    } catch (err) {
-        // Fail silently — the HTML defaults remain visible so the site still
-        // works if content.json is missing.
-        console.warn('[muaze] content.json failed to load:', err);
-    } finally {
-        // Reveal-able elements get observed AFTER content is filled so
-        // template-cloned items also fade in.
-        initScrollReveal();
     }
+
+    // Reveal-able elements get observed AFTER content is filled so
+    // template-cloned items also fade in.
+    initScrollReveal();
 }
 
 // ---------------------------------------------------------------------------
