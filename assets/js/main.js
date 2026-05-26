@@ -10,10 +10,21 @@
 //     enabled on the nginx serving that endpoint.
 
 const VM_CONTENT_URL = 'https://muaze.duckdns.org/data/content.json';
+const VM_NEWS_URL    = 'https://muaze.duckdns.org/api/news/posts';
 const isLocal = location.hostname === 'localhost'
              || location.hostname === '127.0.0.1'
              || location.hostname === '';
 const CONTENT_URL = isLocal ? '/data/content.json' : VM_CONTENT_URL;
+const NEWS_URL    = isLocal ? '/api/news/posts'    : VM_NEWS_URL;
+const NEWS_MAX = 4;
+
+// NewsCategory enum -> display label + badge css class. Mirrors the int values
+// from src/DataModel/Entities/NewsPost.cs on the server side.
+const NEWS_CATEGORIES = {
+    0: { label: 'Anúncio',     cls: 'cat-announce' },
+    1: { label: 'Atualização', cls: 'cat-update'   },
+    2: { label: 'Evento',      cls: 'cat-event'    },
+};
 
 // ---------------------------------------------------------------------------
 // Content templating
@@ -139,9 +150,130 @@ async function loadContent() {
         fillLists(document, data);
     }
 
+    // News is loaded independently — DB-backed, separate endpoint.
+    initNewsModal();
+    await loadNews();
+
     // Reveal-able elements get observed AFTER content is filled so
     // template-cloned items also fade in.
     initScrollReveal();
+}
+
+// ---------------------------------------------------------------------------
+// News feed (separate from content.json — fetched from /api/news/posts which
+// the AdminPanel writes to a DB-backed table; the launcher consumes the same
+// endpoint). Empty state is graceful: if the fetch fails or the feed is empty
+// we render a muted "no news yet" message instead of leaving a broken section.
+// ---------------------------------------------------------------------------
+
+function formatNewsDate(iso) {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+
+function htmlToPlainText(html) {
+    // Card excerpt should never render markup — strip tags via temporary node so
+    // the preview can't accidentally inject styles from the admin's HTML body.
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html ?? '';
+    return (tmp.textContent || '').replace(/\s+/g, ' ').trim();
+}
+
+function renderNewsCard(post) {
+    const cat = NEWS_CATEGORIES[post.category] || NEWS_CATEGORIES[0];
+    const card = document.createElement('article');
+    card.className = 'news-card' + (post.pinned ? ' is-pinned' : '');
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `Ler notícia: ${post.title}`);
+
+    const fullText = htmlToPlainText(post.body);
+    const excerpt = fullText.length > 180 ? fullText.slice(0, 180).trimEnd() + '…' : fullText;
+
+    const badge = document.createElement('span');
+    badge.className = `news-cat-badge ${cat.cls}`;
+    badge.textContent = cat.label;
+
+    const heading = document.createElement('h3');
+    heading.textContent = post.title;
+
+    const excerptEl = document.createElement('p');
+    excerptEl.className = 'news-excerpt';
+    excerptEl.textContent = excerpt;
+
+    const dateEl = document.createElement('time');
+    dateEl.dateTime = post.postDate;
+    dateEl.textContent = formatNewsDate(post.postDate);
+
+    card.append(badge, heading, excerptEl, dateEl);
+
+    const open = () => openNewsModal(post);
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            open();
+        }
+    });
+    return card;
+}
+
+function openNewsModal(post) {
+    const modal = document.getElementById('news-modal');
+    if (!modal) return;
+    const cat = NEWS_CATEGORIES[post.category] || NEWS_CATEGORIES[0];
+    const badge = modal.querySelector('.news-cat-badge');
+    badge.className = `news-cat-badge ${cat.cls}`;
+    badge.textContent = cat.label;
+    modal.querySelector('#news-modal-title').textContent = post.title;
+    const t = modal.querySelector('time');
+    t.dateTime = post.postDate;
+    t.textContent = formatNewsDate(post.postDate);
+    modal.querySelector('.news-modal-body').innerHTML = post.body || '';
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    modal.querySelector('.news-modal-close').focus();
+}
+
+function closeNewsModal() {
+    const modal = document.getElementById('news-modal');
+    if (!modal) return;
+    modal.hidden = true;
+    document.body.style.overflow = '';
+}
+
+function initNewsModal() {
+    const modal = document.getElementById('news-modal');
+    if (!modal) return;
+    modal.querySelector('.news-modal-backdrop').addEventListener('click', closeNewsModal);
+    modal.querySelector('.news-modal-close').addEventListener('click', closeNewsModal);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.hidden) closeNewsModal();
+    });
+}
+
+async function loadNews() {
+    const grid = document.getElementById('news-grid');
+    if (!grid) return;
+
+    let posts = null;
+    try {
+        posts = await fetchJson(NEWS_URL);
+    } catch (err) {
+        console.warn('[muaze] news fetch failed:', err);
+    }
+
+    if (!Array.isArray(posts) || posts.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'news-empty';
+        empty.textContent = grid.dataset.emptyState || 'Sem notícias.';
+        grid.replaceChildren(empty);
+        return;
+    }
+
+    // /api/news/posts already orders pinned-first then by PostDate desc.
+    grid.replaceChildren(...posts.slice(0, NEWS_MAX).map(renderNewsCard));
 }
 
 // ---------------------------------------------------------------------------
@@ -152,7 +284,7 @@ function initScrollReveal() {
     if (!('IntersectionObserver' in window)) return;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const selectors = ['.card', '.class-card', '.step', '.rate-table'];
+    const selectors = ['.card', '.class-card', '.step', '.rate-table', '.news-card'];
     const targets = document.querySelectorAll(selectors.join(','));
     if (!targets.length) return;
 
