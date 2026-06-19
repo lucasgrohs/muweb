@@ -2,7 +2,7 @@
     "site": {
         "brand": "MuAze",
         "discordUrl": "",
-        "downloadUrl": "#",
+        "downloadUrl": "https://api.muaze.online/launcher/MuAzeSetup.exe",
         "serverStatusLabel": "Servidor Online",
         "footerCopyright": "© 2026 MuAze · Servidor privado de MU Online",
         "footerDisclaimer": "MU Online é marca registrada da Webzen Inc. Este é um servidor privado sem fins comerciais, mantido por fãs para fins educacionais e de comunidade."
@@ -153,7 +153,7 @@
                 "title": "Baixe o Launcher",
                 "body": "O launcher é um único .exe (~70MB) que cuida do download e atualização do cliente. Sem winzip, sem arrastar arquivo na pasta certa.",
                 "ctaText": "Baixar Launcher",
-                "ctaUrl": "#"
+                "ctaUrl": "https://api.muaze.online/launcher/MuAzeSetup.exe"
             },
             {
                 "title": "Crie sua conta",
