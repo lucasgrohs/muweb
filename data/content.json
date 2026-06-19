@@ -10,7 +10,7 @@
 
     "hero": {
         "subtitle": "MU Online · Season 6 Episode 3",
-        "tagline": "<strong>Squad Mode</strong> · Devias Siege · Castle Sanctuary",
+        "tagline": "<strong>Squad Mode</strong> · Classe Sorceress · Integração Kick",
         "ctaPrimary": "Baixar Cliente",
         "ctaSecondary": "Ver Features",
         "scrollCue": "Explore"
@@ -27,10 +27,28 @@
                 "linkUrl": "features.html#squad"
             },
             {
+                "title": "Classe Exclusiva: Sorceress",
+                "body": "A 8ª classe — uma treinadora de pet que você não encontra em nenhum outro server. Comanda um corvo que escala com Liderança, kit de skills de ilusão e dash de teleporte.",
+                "linkText": "Conhecer",
+                "linkUrl": "features.html#sorceress"
+            },
+            {
+                "title": "Integração Kick",
+                "body": "Assista às lives e seja recompensado. Virar sub credita Cash Credits direto na sua conta, e o bot interativo roda quiz, minigames e prêmios no chat.",
+                "linkText": "Ver integração",
+                "linkUrl": "features.html#kick"
+            },
+            {
                 "title": "Eventos Exclusivos",
                 "body": "Devias Siege (20 min / 4h cooldown), Castle Sanctuary com drops de jewel, 5 eventos com HUD drill-in e ranking ao vivo.",
                 "linkText": "Ver eventos",
                 "linkUrl": "features.html#events"
+            },
+            {
+                "title": "Movimento WASD",
+                "body": "Opção de mover o personagem com o teclado (WASD), eixos isométricos relativos à câmera — fluido e opcional, sem quebrar o clique clássico.",
+                "linkText": "Ver features",
+                "linkUrl": "features.html"
             },
             {
                 "title": "Cash Shop Justo",
@@ -40,7 +58,7 @@
             }
         ],
         "classesHeader": "Classes Disponíveis",
-        "classesSubtext": "Todas as 7 classes oficiais do MU Online Season 6 Episode 3.",
+        "classesSubtext": "As 7 classes do MU Online Season 6 Episode 3 — mais a Sorceress, classe exclusiva do MuAze.",
         "classes": [
             { "name": "Dark Knight",     "short": "DK", "imgSrc": "assets/img/class-dk.gif"  },
             { "name": "Dark Wizard",     "short": "DW", "imgSrc": "assets/img/class-dw.gif"  },
@@ -48,7 +66,8 @@
             { "name": "Magic Gladiator", "short": "MG", "imgSrc": "assets/img/class-mg.gif"  },
             { "name": "Dark Lord",       "short": "DL", "imgSrc": "assets/img/class-dl.gif"  },
             { "name": "Summoner",        "short": "SM", "imgSrc": "assets/img/class-sm.gif"  },
-            { "name": "Rage Fighter",    "short": "RF", "imgSrc": "assets/img/class-rf.gif"  }
+            { "name": "Rage Fighter",    "short": "RF", "imgSrc": "assets/img/class-rf.gif"  },
+            { "name": "Sorceress ✦",     "short": "SC", "imgSrc": "assets/img/class-elf.gif" }
         ],
         "ctaHeader": "Pronto pra jogar?",
         "ctaSubtext": "Baixe o cliente, crie sua conta, escolha sua party — em 5 minutos você está em Lorencia.",
@@ -69,6 +88,25 @@
             { "title": "Painel Shift+Z",     "body": "Squad manager completo: follow modes (Cross/Tight/Wide/Stationary), standby, grupos de party, online/offline por slot." },
             { "title": "Follow inteligente", "body": "Phantoms seguem o ativo em formação. Cohesion last-resort destrava se ficarem parados." },
             { "title": "Combat por classe",  "body": "Cada classe ataca no seu range natural — Elf com bow a 6 tiles, melee a 2. Skills: Twisting Slash, Rageful Blow, Lightning, Greater Buffs." }
+        ],
+
+        "sorceressHeader": "Classe Exclusiva — Sorceress",
+        "sorceressLede": "A 8ª classe do MuAze. Uma treinadora de pet que não existe em nenhum outro servidor.",
+        "sorceressCards": [
+            { "title": "Treinadora de Corvo", "body": "Comanda um corvo de combate que escala com o atributo Liderança — quanto mais Command, mais forte, mais rápido e mais preciso o pet fica." },
+            { "title": "Atributo Command",    "body": "Estilo Dark Lord: investe pontos em Liderança pra turbinar o corvo. 7 pontos de stat por nível, igual às classes de comando." },
+            { "title": "Kit de Ilusão",       "body": "Skills temáticas: Comunhão Demoníaca, Aegis Ilusório, Fairy Mirage, Tempestade Ilusória — ilusões que copiam o poder de outras classes." },
+            { "title": "Illusory Blink",      "body": "Skill-assinatura no espaço: um dash de teleporte com salto, rastro de energia e dano em área no pouso — mobilidade estilo action-RPG." },
+            { "title": "Identidade própria",  "body": "Corpo híbrido com asa e corvo translúcidos, glow de cor por skill e visual exclusivo construído à mão pra essa classe." }
+        ],
+
+        "kickHeader": "Integração Kick",
+        "kickLede": "O servidor conversa com a sua live. Assista, participe e seja recompensado.",
+        "kickCards": [
+            { "title": "Sub vira Cash Credits", "body": "Virou sub na Kick? O servidor credita Cash Credits automaticamente na sua conta. A Kick cobra a assinatura — você joga com o saldo." },
+            { "title": "Bot interativo",        "body": "Quiz, minigames e prêmios direto no chat da live. A galera ganha pontos e recompensas in-game participando da transmissão." },
+            { "title": "Modo Stream",           "body": "Aba dedicada no launcher com apostas e overlays — a audiência aposta nos eventos do servidor enquanto a partida rola." },
+            { "title": "Câmera POV dirigida",   "body": "Sistema de espectador que segue jogadores ao vivo e um director console pra trocar de alvo durante a transmissão." }
         ],
 
         "eventsHeader": "Eventos Customizados",
@@ -98,8 +136,8 @@
             { "title": "Anti-cheat camadas", "body": "Server-side validation de skill hits, caps e bounds. SuspiciousActivity table + AdminPanel pra revisão." },
             { "title": "HMAC client gate",   "body": "Main.exe só roda via launcher autenticado (token HMAC-SHA256). Sem hooks no .exe direto." },
             { "title": "HTTPS Let's Encrypt","body": "TLS prod com cert auto-renewal. Toda comunicação cliente↔server cifrada." },
-            { "title": "AdminPanel rebrand", "body": "Painel admin Blazor com tema MuAze. Bans, suspeitas, eventos — tudo via web." },
-            { "title": "Open-source base",   "body": "Construído sobre OpenMU, fork mantido. Atualizações upstream propagadas regularmente." }
+            { "title": "Painel admin web",   "body": "Painel de administração com tema MuAze. Bans, suspeitas, eventos e notícias — tudo gerido pela web." },
+            { "title": "Atualização contínua","body": "Engine própria, mantida e otimizada. Balance, conteúdo e correções entram em ciclos frequentes." }
         ],
 
         "ctaHeader": "Pronto pra testar tudo isso?",
@@ -138,9 +176,10 @@
         "pageHeader": "Informações do Servidor",
         "pageLede": "Versão, rates e status atual.",
         "summary": [
-            { "title": "Versão",         "body": "Season 6 Episode 3 — base OpenMU customizada." },
+            { "title": "Versão",         "body": "Season 6 Episode 3 — engine customizada do MuAze." },
             { "title": "Cap de Level",   "body": "Level máximo: <strong>400</strong>. Master level até <strong>200</strong>." },
-            { "title": "Slots por conta","body": "<strong>5 personagens</strong> — necessário pro Squad Mode funcionar." }
+            { "title": "Slots por conta","body": "<strong>5 personagens</strong> — necessário pro Squad Mode funcionar." },
+            { "title": "Classes",        "body": "7 classes oficiais + <strong>Sorceress</strong>, a classe exclusiva do servidor." }
         ],
         "ratesHeader": "Rates",
         "rates": [
@@ -170,6 +209,7 @@
         "pageHeader": "Comunidade",
         "pageLede": "Discord, regras e onde reportar problemas.",
         "channels": [
+            { "title": "Kick",               "body": "Acompanhe as lives do MuAze na Kick: eventos ao vivo, quiz e minigames no chat, e Cash Credits creditados automaticamente pra quem vira sub.", "linkText": "em breve", "linkUrl": "" },
             { "title": "Discord",            "body": "Em breve. Quando o servidor abrir publicamente, o convite aparece aqui.", "linkText": "em breve", "linkUrl": "" },
             { "title": "Bug Report",         "body": "Achou bug, exploit, packet quebrado? Reporta direto pra equipe via Discord ou e-mail." },
             { "title": "Suporte de Conta",   "body": "Perdeu acesso, conta hackeada, dúvida sobre regras — fale com um admin." }
