@@ -97,7 +97,7 @@
             { "title": "Atributo Command",    "body": "Estilo Dark Lord: investe pontos em Liderança pra turbinar o corvo. 7 pontos de stat por nível, igual às classes de comando." },
             { "title": "Kit de Ilusão",       "body": "Skills temáticas: Comunhão Demoníaca, Aegis Ilusório, Fairy Mirage, Tempestade Ilusória — ilusões que copiam o poder de outras classes." },
             { "title": "Illusory Blink",      "body": "Skill-assinatura no espaço: um dash de teleporte com salto, rastro de energia e dano em área no pouso — mobilidade estilo action-RPG." },
-            { "title": "Identidade própria",  "body": "Corpo híbrido com asa e corvo translúcidos, glow de cor por skill e visual exclusivo construído à mão pra essa classe." }
+            { "title": "Asas Próprias", "body": "As asas são dela — nascem nas costas da personagem, não são um item equipável como nas outras classes. E elas reagem ao que ela conjura: o brilho muda de cor a cada skill, a asa acende e pulsa junto com o corvo. Um jogo de luz feito à mão, exclusivo dessa classe." }
         ],
 
         "kickHeader": "Integração Kick",
