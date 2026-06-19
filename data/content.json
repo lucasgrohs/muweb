@@ -67,7 +67,7 @@
             { "name": "Dark Lord",       "short": "DL", "imgSrc": "assets/img/class-dl.gif"  },
             { "name": "Summoner",        "short": "SM", "imgSrc": "assets/img/class-sm.gif"  },
             { "name": "Rage Fighter",    "short": "RF", "imgSrc": "assets/img/class-rf.gif"  },
-            { "name": "Sorceress ✦",     "short": "SC", "imgSrc": "assets/img/class-sorc.png?v=3" }
+            { "name": "Sorceress ✦",     "short": "SC", "imgSrc": "assets/img/class-sorc.png?v=3", "badge": "EXCLUSIVA" }
         ],
         "ctaHeader": "Pronto pra jogar?",
         "ctaSubtext": "Baixe o cliente, crie sua conta, escolha sua party — em 5 minutos você está em Lorencia.",
